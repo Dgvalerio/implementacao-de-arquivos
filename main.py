@@ -1,16 +1,29 @@
-# This is a sample Python script.
+class Node:
+    def __init__(self, data=0, next_node=None):
+        self.data = data
+        self.next = next_node
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    def __repr__(self):
+        return '%s -> %s' % (self.data, self.next)
 
 
-# Press the green button in the gutter to run the script.
+class List:
+    def __init__(self):
+        self.start = None
+
+    def __repr__(self):
+        return "[" + str(self.start) + "]"
+
+    # Para inserir no inicio da lista
+    def unshift(self, new_data):
+        node = Node(new_data)
+        node.next = self.start
+        self.start = node
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    list = List()
+    list.unshift(8)
+    print(list)
+    list.unshift(16)
+    print(list)
