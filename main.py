@@ -1,9 +1,10 @@
-# Considere a implementação de arquivos com lista encadeada.
-# Um arquivo é dividido em vários blocos encadeados no disco.
-# Cada bloco deve possuir o tamanho de 1 byte (uma letra) e um ponteiro para o bloco seguinte,
-# sendo o último bloco com ponteiro nulo indicando seu final.
+# Como a idea é simular uma memória de 32 bytes, irei deixar o tamanho da lista limitada com essa variável
+
+memorySize = 8
+
+
 class Block:
-    def __init__(self, letter=0, next_block=None):
+    def __init__(self, letter, next_block=None):
         self.letter = letter
         self.next = next_block
 
@@ -11,7 +12,9 @@ class Block:
         return '%s -> %s' % (self.letter, self.next)
 
 
-class File:
+class Disk:
+    memory = [None] * memorySize
+
     def __init__(self):
         self.start = None
 
@@ -24,10 +27,22 @@ class File:
         node.next = self.start
         self.start = node
 
+    def verify_empty_space(self):
+        empty = []
+        for val in self.memory:
+            print(val)
+
+    def add_file(self, file):
+        for index, letter in enumerate(file):
+            if self.memory[index] is None:
+                self.memory[index] = letter
+            self.memory.append(letter)
+        print(self.memory)
+
 
 if __name__ == '__main__':
-    file = File()
-    file.unshift(8)
-    print(file)
-    file.unshift(16)
-    print(file)
+    disk = Disk()
+    disk.add_file('Pernambuco')
+    # disk.add_file('São Paulo')
+    # disk.add_file('São Alagoas')
+    # disk.add_file('Santa Catarina')
