@@ -1,5 +1,5 @@
 # Implementação de Arquivos
-Trabalho realizado para a disciplina de Sistemas Operacionais, 
+Trabalho realizado para a disciplina de Sistemas Operacionais, no período de 2023.1
 1. Trabalho em dupla
 2. Em Python, C ou Java
 3. Descrição do trabalho:\
