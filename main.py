@@ -56,6 +56,22 @@ class Disk:
             next_block = self.get_file(block[1])
             return f'{block[0]}{next_block}'
 
+    def show_block(self, index):
+        block = self.memory[index]
+        print(f'{index}\t\t{block[0]}\t\t{block[1]}')
+        if block[1] is None:
+            print('')
+        else:
+            self.show_block(block[1])
+
+    def show_file(self, file):
+        for head in self.heads:
+            memory_file = self.get_file(head)
+            if file == memory_file:
+                print(f'Index\tBlock\tNext')
+                return self.show_block(head)
+        print(f'Arquivo "{file}" não foi encontrado na memória!\n')
+
     def remove_block(self, block_index):
         next_block = self.memory[block_index][1]
         self.memory[block_index] = None
@@ -91,3 +107,5 @@ if __name__ == '__main__':
 
     disk.add_file('Santa Catarina')
     disk.show_memory()
+
+    disk.show_file('Alagoas')
