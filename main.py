@@ -1,6 +1,6 @@
 # Como a idea é simular uma memória de 32 bytes, irei deixar o tamanho da lista limitada com essa variável
 
-memorySize = 8
+memorySize = 32
 
 
 class Block:
@@ -21,28 +21,33 @@ class Disk:
     def __repr__(self):
         return "[" + str(self.start) + "]"
 
-    # Para inserir no inicio da lista
-    def unshift(self, new_data):
-        node = Block(new_data)
-        node.next = self.start
-        self.start = node
+    def verify_empty_space(self, size):
+        head = None
+        count = 0
+        for index, value in enumerate(self.memory):
+            if value is None:
+                if head is None:
+                    head = index
+                count += 1
+                if count >= size:
+                    return head
+            else:
+                head = None
+        return None
 
-    def verify_empty_space(self):
-        empty = []
-        for val in self.memory:
-            print(val)
-
+#todo: guarda a posição do próximo item e talvez as heads
     def add_file(self, file):
+        start_index = self.verify_empty_space(len(file))
+        if start_index is None:
+            return print('Memory our of range!!!', file, "can't be inserted")
         for index, letter in enumerate(file):
-            if self.memory[index] is None:
-                self.memory[index] = letter
-            self.memory.append(letter)
+            self.memory[start_index+index] = letter
         print(self.memory)
 
 
 if __name__ == '__main__':
     disk = Disk()
     disk.add_file('Pernambuco')
-    # disk.add_file('São Paulo')
+    disk.add_file('São Paulo')
     # disk.add_file('São Alagoas')
     # disk.add_file('Santa Catarina')
